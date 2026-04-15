@@ -4,4 +4,4 @@
 
 > Можешь ещё что-то типа: 
 <img width="649" height="894" alt="image" src="https://github.com/user-attachments/assets/62fedb87-b9f2-4a19-a910-b5beb63085d3" />
-Тут уже если будет выёбываться.
+<p style="padding-left: 20px">Тут уже если будет выёбываться.</p>
