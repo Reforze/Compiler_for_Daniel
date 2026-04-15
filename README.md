@@ -1,4 +1,5 @@
 Для запуска просто используй команду в терминале VScode: 
+
 ```bash dotnet run --project Compiler_for_Daniel.csproj -- examples/demo.dl -o result.asm ```
 
 
