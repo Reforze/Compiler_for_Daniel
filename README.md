@@ -1,7 +1,7 @@
 Для запуска просто используй команду в терминале VScode: 
 <p style="padding-left: 30px"></p>
 
-```bash dotnet run --project Compiler_for_Daniel.csproj -- examples/demo.dl -o result.asm ```
+``` dotnet run --project Compiler_for_Daniel.csproj -- examples/demo.dl -o result.asm ```
 
 <p style="padding-left: 30px"></p>
 
