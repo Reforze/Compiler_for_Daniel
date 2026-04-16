@@ -1,5 +1,9 @@
 Для запуска просто используй команду в терминале VScode: 
-<p style="padding-left: 30px"></p>
+<p style="padding-left: 30px">Перед началом убедись что находишься в нужной папке</p>
+
+``` cd Compiler_for_Daniel ```
+
+<p style="padding-left: 30px">Потом пиши: </p>
 
 ``` dotnet run --project Compiler_for_Daniel.csproj -- examples/demo.dl -o result.asm ```
 
