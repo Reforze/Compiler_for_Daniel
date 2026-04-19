@@ -44,7 +44,7 @@ public sealed class Parser
         if (Check(k)) return Advance();
         var t = Peek();
         throw new CompilerException(
-            $"[{t.Line}:{t.Col}] Синтаксическая ошибка: ожидалось {what}, получено '{t.Lexeme}'");
+            $"строка {t.Line}, столбец {t.Col}: Синтаксическая ошибка: ожидалось {what}, получено '{t.Lexeme}'");
     }
 
     // Разбор всей программы с восстановлением после ошибок
@@ -263,7 +263,7 @@ public sealed class Parser
                 return new NumberLit(0, t.Line, t.Col);
             default:
                 throw new CompilerException(
-                    $"[{t.Line}:{t.Col}] Синтаксическая ошибка: ожидалось выражение, получено '{t.Lexeme}'");
+                    $"строка {t.Line}, столбец {t.Col}: Синтаксическая ошибка: ожидалось выражение, получено '{t.Lexeme}'");
         }
     }
 }

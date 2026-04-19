@@ -57,14 +57,14 @@ public sealed class SemanticAnalyzer
             case VarDecl v:
                 if (!SymbolTable.TryDeclare(v.Name, DanType.Int))
                     throw new CompilerException(
-                        $"[{v.Line}:{v.Col}] Семантическая ошибка: переменная '{v.Name}' уже объявлена");
+                        $"строка {v.Line}, столбец {v.Col}: Семантическая ошибка: переменная '{v.Name}' уже объявлена");
                 if (v.Init != null) CheckExpr(v.Init);
                 break;
 
             case Assign a:
                 if (SymbolTable.Lookup(a.Name) == null)
                     throw new CompilerException(
-                        $"[{a.Line}:{a.Col}] Семантическая ошибка: переменная '{a.Name}' не объявлена");
+                        $"строка {a.Line}, столбец {a.Col}: Семантическая ошибка: переменная '{a.Name}' не объявлена");
                 CheckExpr(a.Value);
                 break;
 
@@ -94,7 +94,7 @@ public sealed class SemanticAnalyzer
             case InputStmt r:
                 if (SymbolTable.Lookup(r.Name) == null)
                     throw new CompilerException(
-                        $"[{r.Line}:{r.Col}] Семантическая ошибка: переменная '{r.Name}' не объявлена");
+                        $"строка {r.Line}, столбец {r.Col}: Семантическая ошибка: переменная '{r.Name}' не объявлена");
                 break;
 
             case ExprStmt e:
@@ -113,13 +113,13 @@ public sealed class SemanticAnalyzer
             case VarRef v:
                 var info = SymbolTable.Lookup(v.Name) ??
                     throw new CompilerException(
-                        $"[{v.Line}:{v.Col}] Семантическая ошибка: переменная '{v.Name}' не объявлена");
+                        $"строка {v.Line}, столбец {v.Col}: Семантическая ошибка: переменная '{v.Name}' не объявлена");
                 return info.Type;
 
             case Unary u:
                 var ut = CheckExpr(u.Operand);
                 if (u.Op == "-" && ut != DanType.Int)
-                    throw new CompilerException($"[{u.Line}:{u.Col}] Унарный '-' применим только к int");
+                    throw new CompilerException($"строка {u.Line}, столбец {u.Col}: Унарный '-' применим только к int");
                 return u.Op == "!" ? DanType.Bool : DanType.Int;
 
             case Binary b:
@@ -130,17 +130,17 @@ public sealed class SemanticAnalyzer
                     case "+": case "-": case "*": case "/": case "%":
                         if (lt != DanType.Int || rt != DanType.Int)
                             throw new CompilerException(
-                                $"[{b.Line}:{b.Col}] Арифметический оператор '{b.Op}' требует операнды типа int");
+                                $"строка {b.Line}, столбец {b.Col}: Арифметический оператор '{b.Op}' требует операнды типа int");
                         return DanType.Int;
                     case "<": case "<=": case ">": case ">=":
                         if (lt != DanType.Int || rt != DanType.Int)
                             throw new CompilerException(
-                                $"[{b.Line}:{b.Col}] Оператор сравнения '{b.Op}' требует операнды типа int");
+                                $"строка {b.Line}, столбец {b.Col}: Оператор сравнения '{b.Op}' требует операнды типа int");
                         return DanType.Bool;
                     case "==": case "!=":
                         if (lt != rt)
                             throw new CompilerException(
-                                $"[{b.Line}:{b.Col}] Оператор '{b.Op}': несовместимые типы ({lt} и {rt})");
+                                $"строка {b.Line}, столбец {b.Col}: Оператор '{b.Op}': несовместимые типы ({lt} и {rt})");
                         return DanType.Bool;
                     case "&&": case "||":
                         // допускаем int как логическое значение (0=false, иное=true), как в C
@@ -148,6 +148,6 @@ public sealed class SemanticAnalyzer
                 }
                 break;
         }
-        throw new CompilerException($"[{e.Line}:{e.Col}] Неизвестный тип выражения");
+        throw new CompilerException($"строка {e.Line}, столбец {e.Col}: Неизвестный тип выражения");
     }
 }

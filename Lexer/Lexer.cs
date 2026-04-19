@@ -88,7 +88,7 @@ public sealed class Lexer
                 Advance(); Advance();
                 while (_pos < _src.Length && !(Cur == '*' && Next == '/')) Advance();
                 if (_pos < _src.Length) { Advance(); Advance(); }
-                else _errors.Add($"[{startLine}:{startCol}] Лексическая ошибка: незакрытый комментарий /*");
+                else _errors.Add($"строка {startLine}, столбец {startCol}: Лексическая ошибка: незакрытый комментарий /*");
                 continue;
             }
             break;
@@ -127,7 +127,7 @@ public sealed class Lexer
 
     private Token BadChar(char c, int line, int col, string? hint = null)
     {
-        string msg = $"[{line}:{col}] Лексическая ошибка: неизвестный символ '{c}'";
+        string msg = $"строка {line}, столбец {col}: Лексическая ошибка: неизвестный символ '{c}'";
         if (hint != null) msg += $" ({hint})";
         _errors.Add(msg);
         Advance();
