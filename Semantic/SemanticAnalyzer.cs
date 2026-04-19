@@ -148,6 +148,6 @@ public sealed class SemanticAnalyzer
                 }
                 break;
         }
-        throw new CompilerException("Неизвестный тип выражения");
+        throw new CompilerException($"[{e.Line}:{e.Col}] Неизвестный тип выражения");
     }
 }
